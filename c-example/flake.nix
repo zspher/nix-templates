@@ -13,14 +13,15 @@
     devShells = perSystem ({pkgs}: {
       default = pkgs.mkShell {
         packages = with pkgs; [
-          # lsp
-          clang-tools
-
-          # debugger
-          vscode-extensions.vadimcn.vscode-lldb.adapter
+          clang-tools # LSP, formatter
+          vscode-extensions.vadimcn.vscode-lldb.adapter # debugger
         ];
 
-        nativeBuildInputs = with pkgs; [gnumake gcc];
+        nativeBuildInputs = with pkgs; [
+          meson
+          ninja
+          pkg-config
+        ];
       };
     });
   };
