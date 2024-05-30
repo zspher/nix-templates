@@ -12,10 +12,7 @@
   in {
     devShells = perSystem ({pkgs}: {
       default = pkgs.mkShell {
-        packages = with pkgs; [
-          clang-tools # LSP, formatter
-          vscode-extensions.vadimcn.vscode-lldb.adapter # debugger
-        ];
+        packages = [];
 
         nativeBuildInputs = with pkgs; [
           meson
