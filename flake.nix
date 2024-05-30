@@ -6,6 +6,10 @@
         path = ./c-example;
         description = "c example";
       };
+      rust-example = {
+        path = ./rust-example;
+        description = "rust example";
+      };
     };
   };
 }
