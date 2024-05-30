@@ -10,6 +10,10 @@
         path = ./rust-example;
         description = "rust example";
       };
+      c-sharp-example = {
+        path = ./c-sharp-example;
+        description = "c# example";
+      };
     };
   };
 }
