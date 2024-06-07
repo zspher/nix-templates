@@ -1,5 +1,5 @@
 {
-  description = "example c program";
+  description = "example c/cpp program";
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
   outputs = {nixpkgs, ...}: let
@@ -12,7 +12,10 @@
   in {
     devShells = perSystem ({pkgs}: {
       default = pkgs.mkShell {
-        packages = [];
+        packages = with pkgs; [
+          clang-tools # LSP, formatter
+          vscode-extensions.vadimcn.vscode-lldb.adapter # debugger
+        ];
 
         nativeBuildInputs = with pkgs; [
           meson

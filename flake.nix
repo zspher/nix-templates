@@ -2,9 +2,9 @@
   description = "a collection of templates";
   outputs = {self}: {
     templates = {
-      c-example = {
-        path = ./c-example;
         description = "c example";
+      c-cpp = {
+        path = ./c-cpp;
       };
       rust-example = {
         path = ./rust-example;

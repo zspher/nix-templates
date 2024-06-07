@@ -1,5 +1,5 @@
 project(
-    'hello-world',
+    'blank-test',
     'c',
     default_options: [
         'warning_level=2',
@@ -8,5 +8,3 @@ project(
         'c_std=c2x',
     ],
 )
-
-subdir('src')
