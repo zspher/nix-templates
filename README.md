@@ -10,8 +10,20 @@ nix flake init -t github:zspher/nix-templates#{name}
 
 ## dev
 
-to use the devshell use the ff.
+to test the devshell use the ff.
 
 ```sh
 nix develop . --no-write-lock-file
 ```
+
+## templates
+
+each template has the ff.
+
+- [ ] flake config
+  - [ ] with lsp, formatter, debugger
+- [ ] direnv config
+- [ ] buildfiles (_if applicable_)
+- [ ] formatter config (_if applicable_)
+- [ ] editorconfig
+- [ ] gitignore
