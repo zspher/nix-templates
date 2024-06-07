@@ -11,6 +11,9 @@
       c-sharp = {
         path = ./c-sharp;
       };
+      python = {
+        path = ./python;
+      };
     };
   };
 }
