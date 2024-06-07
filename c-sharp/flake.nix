@@ -15,7 +15,10 @@
   in {
     devShells = perSystem ({pkgs}: {
       default = pkgs.mkShell {
-        packages = with pkgs; [];
+        packages = with pkgs; [
+          omnisharp-roslyn # lsp, formatter
+          netcoredbg # debugger
+        ];
 
         buildInputs = with pkgs; [dotnet-sdk_8];
 

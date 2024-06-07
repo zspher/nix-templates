@@ -8,8 +8,8 @@
       rust-example = {
         path = ./rust-example;
       };
-      c-sharp-example = {
-        path = ./c-sharp-example;
+      c-sharp = {
+        path = ./c-sharp;
       };
     };
   };
