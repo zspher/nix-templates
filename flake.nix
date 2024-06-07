@@ -5,8 +5,8 @@
       c-cpp = {
         path = ./c-cpp;
       };
-      rust-example = {
-        path = ./rust-example;
+      rust = {
+        path = ./rust;
       };
       c-sharp = {
         path = ./c-sharp;

@@ -25,7 +25,10 @@
   in {
     devShells = perSystem ({pkgs}: {
       default = pkgs.mkShell {
-        packages = [];
+        packages = with pkgs; [
+          rust-analyzer # LSP
+          vscode-extensions.vadimcn.vscode-lldb.adapter # debugger
+        ];
         nativeBuildInputs = [
           pkgs.rust-bin.stable.latest.default
         ];

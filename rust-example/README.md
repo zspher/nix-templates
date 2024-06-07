@@ -1,1 +1,0 @@
-# example rust program
