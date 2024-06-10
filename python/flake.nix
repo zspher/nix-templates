@@ -18,9 +18,7 @@
         packages = with pkgs; [
           nodePackages_latest.pyright # LSP
           ruff-lsp # linter, formatter via LSP
-          (python3.withPackages (ps: [
-            ps.debugpy # debugger
-          ]))
+          python3Packages.debugpy # debugger
         ];
 
         nativeBuildInputs = with pkgs; [];
