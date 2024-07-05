@@ -15,6 +15,7 @@
         packages = with pkgs; [
           clang-tools # LSP, formatter
           vscode-extensions.vadimcn.vscode-lldb.adapter # debugger
+          mesonlsp # LSP
         ];
 
         nativeBuildInputs = with pkgs; [
