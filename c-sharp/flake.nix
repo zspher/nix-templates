@@ -16,7 +16,6 @@
     devShells = perSystem ({pkgs}: {
       default = pkgs.mkShell {
         packages = with pkgs; [
-          roslyn-ls # lsp, formatter
           netcoredbg # debugger
         ];
 

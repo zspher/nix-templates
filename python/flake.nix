@@ -15,11 +15,7 @@
   in {
     devShells = perSystem ({pkgs}: {
       default = pkgs.mkShell {
-        packages = with pkgs; [
-          nodePackages_latest.pyright # LSP
-          ruff-lsp # linter, formatter via LSP
-          python3Packages.debugpy # debugger
-        ];
+        packages = with pkgs; [];
 
         nativeBuildInputs = with pkgs; [];
         buildInputs = with pkgs; [];
