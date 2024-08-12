@@ -15,7 +15,11 @@
   in {
     devShells = perSystem ({pkgs}: {
       default = pkgs.mkShell {
-        packages = with pkgs; [];
+        packages = with pkgs; [
+          (python.withPackages (ps:
+            with ps; [
+            ]))
+        ];
 
         nativeBuildInputs = with pkgs; [];
         buildInputs = with pkgs; [];
