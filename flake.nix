@@ -44,6 +44,9 @@
         }
       );
       templates = {
+        default = {
+          path = ./empty;
+        };
         c-cpp = {
           path = ./c-cpp;
         };
