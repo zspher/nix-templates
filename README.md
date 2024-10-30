@@ -2,11 +2,21 @@
 
 Personal templates to jump-start a project
 
+to use, replace {name} with the appropriate template
+
 ```sh
 nix flake init -t github:zspher/nix-templates#{name}
 ```
 
-> replace {name} with the appropriate template
+## templates list
+| templates |
+| -- |
+| [`c-cpp`](./c-cpp/) |
+| [`c-sharp`](./c-sharp/) |
+| [`latex`](./latex/) |
+| [`notebook`](./notebook/) |
+| [`python`](./python/) |
+| [`rust`](./rust/) |
 
 ## dev
 
@@ -16,14 +26,5 @@ to test the devshell use the ff.
 nix develop . --no-write-lock-file
 ```
 
-## templates
-
-each template has the ff.
-
-- [ ] flake config
-  - [ ] with lsp, formatter, debugger
-- [ ] direnv config
-- [ ] buildfiles (_if applicable_)
-- [ ] formatter config (_if applicable_)
-- [ ] editorconfig
-- [ ] gitignore
+## interesting templates
+- [the-nix-way/dev-templates](https://github.com/the-nix-way/dev-templates)
