@@ -50,8 +50,8 @@
         c-cpp = {
           path = ./c-cpp;
         };
-        c-sharp = {
-          path = ./c-sharp;
+        csharp = {
+          path = ./csharp;
         };
         latex = {
           path = ./latex;
