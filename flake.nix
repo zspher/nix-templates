@@ -56,9 +56,6 @@
         latex = {
           path = ./latex;
         };
-        notebook = {
-          path = ./notebook;
-        };
         python = {
           path = ./python;
         };
