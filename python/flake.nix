@@ -2,28 +2,44 @@
   description = "";
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
-  outputs = {
-    self,
-    nixpkgs,
-  }: let
-    systems = [
-      "aarch64-linux"
-      "x86_64-linux"
-    ];
-    perSystem = f:
-      nixpkgs.lib.genAttrs systems (system: f {pkgs = nixpkgs.legacyPackages.${system};});
-  in {
-    devShells = perSystem ({pkgs}: {
-      default = pkgs.mkShell {
-        packages = with pkgs; [
-          (python.withPackages (ps:
-            with ps; [
-            ]))
-        ];
+  outputs =
+    {
+      self,
+      nixpkgs,
+    }:
+    let
+      supportedSystems = [
+        "x86_64-linux" # 64-bit Intel/AMD Linux
+        "aarch64-linux" # 64-bit ARM Linux
+        "x86_64-darwin" # 64-bit Intel macOS
+        "aarch64-darwin" # 64-bit ARM macOS
+      ];
 
-        nativeBuildInputs = with pkgs; [];
-        buildInputs = with pkgs; [];
-      };
-    });
-  };
+      perSystem =
+        f:
+        nixpkgs.lib.genAttrs supportedSystems (
+          system:
+          f {
+            pkgs = import nixpkgs { inherit system; };
+          }
+        );
+    in
+    {
+      devShells = perSystem (
+        { pkgs }:
+        {
+          default = pkgs.mkShell {
+            packages = with pkgs; [
+              (python3.withPackages (
+                ps: with ps; [
+                  debugpy
+                  pytest
+                  ruff
+                ]
+              ))
+            ];
+          };
+        }
+      );
+    };
 }
