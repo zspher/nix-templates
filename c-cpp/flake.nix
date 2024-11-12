@@ -5,7 +5,7 @@
   outputs =
     { nixpkgs, ... }:
     let
-      supportedSystems = [
+      systems = [
         "x86_64-linux" # 64-bit Intel/AMD Linux
         "aarch64-linux" # 64-bit ARM Linux
         "x86_64-darwin" # 64-bit Intel macOS
@@ -13,7 +13,7 @@
       ];
       perSystem =
         f:
-        nixpkgs.lib.genAttrs supportedSystems (
+        nixpkgs.lib.genAttrs systems (
           system:
           f {
             pkgs = import nixpkgs { inherit system; };

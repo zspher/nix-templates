@@ -19,15 +19,15 @@
             };
         })
       ];
-      supportedSystems = [
+      systems = [
         "x86_64-linux"
         "aarch64-linux"
         "x86_64-darwin"
         "aarch64-darwin"
       ];
-      forEachSupportedSystem =
+      perSystem =
         f:
-        nixpkgs.lib.genAttrs supportedSystems (
+        nixpkgs.lib.genAttrs systems (
           system:
           f {
             pkgs = import nixpkgs { inherit overlays system; };
@@ -35,7 +35,7 @@
         );
     in
     {
-      devShells = forEachSupportedSystem (
+      devShells = perSystem (
         { pkgs }:
         {
           default = pkgs.mkShell {
