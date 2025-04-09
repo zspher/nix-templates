@@ -12,13 +12,7 @@
         "aarch64-darwin" # 64-bit ARM macOS
       ];
       perSystem =
-        f:
-        nixpkgs.lib.genAttrs systems (
-          system:
-          f {
-            pkgs = import nixpkgs { inherit system; };
-          }
-        );
+        f: nixpkgs.lib.genAttrs systems (system: f { pkgs = nixpkgs.legacyPackages.${system}; });
     in
     {
       devShells = perSystem (

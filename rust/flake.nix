@@ -23,13 +23,10 @@
         nixpkgs.lib.genAttrs systems (
           system:
           f {
-            pkgs = import nixpkgs {
-              inherit system;
-              overlays = [
-                rust-overlay.overlays.default
-                self.overlays.default
-              ];
-            };
+            pkgs = nixpkgs.legacyPackages.${system}.appendOverlays [
+              rust-overlay.overlays.default
+              self.overlays.default
+            ];
           }
         );
     in
