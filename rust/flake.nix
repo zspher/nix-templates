@@ -67,7 +67,7 @@
 
             shellHook = ''
               # Required by rust-analyzer
-              export RUST_SRC_PATH=${pkgs.rustToolchain}/lib/rustlib/src/rust/library";
+              export RUST_SRC_PATH=${pkgs.rustToolchain}/lib/rustlib/src/rust/library
             '';
           };
         }
