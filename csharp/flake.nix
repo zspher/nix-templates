@@ -25,8 +25,8 @@
           dotnetPkgs = (
             with pkgs.dotnetCorePackages;
             combinePackages [
-              sdk_9_0
-              runtime_9_0-bin
+              sdk_10_0
+              runtime_10_0-bin
             ]
           );
         in
@@ -39,8 +39,8 @@
             ];
 
             shellHook = ''
-              export DOTNET_ROOT=${dotnetPkgs}
-              # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${pkgs.lib.makeLibraryPath [ ]}
+              export DOTNET_ROOT="${dotnetPkgs}/share/dotnet"
+              # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${pkgs.lib.makeLibraryPath [ dotnetPkgs ]}
             '';
           };
         }
