@@ -1,27 +1,22 @@
 {
-  description = "example c# program";
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
   outputs =
-    {
-      self,
-      nixpkgs,
-    }:
+    { nixpkgs, ... }:
     let
-      systems = [
-        "x86_64-linux" # 64-bit Intel/AMD Linux
-        "aarch64-linux" # 64-bit ARM Linux
-        "x86_64-darwin" # 64-bit Intel macOS
-        "aarch64-darwin" # 64-bit ARM macOS
+      inherit (nixpkgs) lib;
+      perSystem = lib.genAttrs [
+        "x86_64-linux"
+        "aarch64-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
       ];
-
-      perSystem =
-        f: nixpkgs.lib.genAttrs systems (system: f { pkgs = nixpkgs.legacyPackages.${system}; });
     in
     {
       devShells = perSystem (
-        { pkgs }:
+        system:
         let
+          pkgs = nixpkgs.legacyPackages.${system};
           dotnetPkgs = (
             with pkgs.dotnetCorePackages;
             combinePackages [
@@ -31,17 +26,13 @@
           );
         in
         {
-          default = pkgs.mkShell {
+          default = pkgs.mkShellNoCC {
             packages = with pkgs; [
-              netcoredbg
-              csharpier
               dotnetPkgs
             ];
 
-            shellHook = ''
-              export DOTNET_ROOT="${dotnetPkgs}/share/dotnet"
-              # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${pkgs.lib.makeLibraryPath [ dotnetPkgs ]}
-            '';
+            env.DOTNET_ROOT = "${dotnetPkgs}/share/dotnet";
+            env.LD_LIBRARY_PATH = "$LD_LIBRARY_PATH:${lib.makeLibraryPath [ pkgs.icu ]}";
           };
         }
       );
