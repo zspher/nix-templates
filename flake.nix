@@ -60,6 +60,9 @@
         python = {
           path = ./python;
         };
+        python-uv = {
+          path = ./python-uv;
+        };
         rust = {
           path = ./rust;
         };
