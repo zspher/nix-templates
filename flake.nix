@@ -5,42 +5,43 @@
   outputs =
     { self, nixpkgs }:
     let
-      overlays = [
-        (final: prev: {
-          build_readme =
-            let
-              readme = final.callPackage ./scripts/readme.nix { flake = ./flake.nix; };
-            in
-            final.writeShellApplication {
-              name = "build_readme";
-              text = ''
-                cp ${readme} README.md
-              '';
-            };
-        })
-      ];
-      systems = [
+      inherit (nixpkgs) lib;
+      perSystem = lib.genAttrs [
         "x86_64-linux"
         "aarch64-linux"
         "x86_64-darwin"
         "aarch64-darwin"
       ];
-      perSystem =
-        f:
-        nixpkgs.lib.genAttrs systems (
-          system:
-          f {
-            pkgs = import nixpkgs { inherit overlays system; };
-          }
-        );
+
     in
     {
       devShells = perSystem (
-        { pkgs }:
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+        in
         {
           default = pkgs.mkShell {
-            packages = with pkgs; [ build_readme ];
+            packages = [ self.packages.${system}.build_readme ];
           };
+        }
+      );
+      packages = perSystem (
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+        in
+        {
+          build_readme =
+            let
+              readme = pkgs.callPackage ./scripts/readme.nix { flake = ./flake.nix; };
+            in
+            pkgs.writeShellApplication {
+              name = "build_readme";
+              text = ''
+                cp ${readme} README.md
+              '';
+            };
         }
       );
       templates = {
