@@ -62,6 +62,15 @@
         };
         python-uv = {
           path = ./python-uv;
+          welcomeText = ''
+            pls run the ff. to use:
+
+            ```sh
+            nix shell nixpkgs#python3
+            nix run nixpkgs#uv init
+            nix run nixpkgs#uv lock
+            ```
+          '';
         };
         rust = {
           path = ./rust;
