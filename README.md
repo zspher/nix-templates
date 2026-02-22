@@ -11,7 +11,8 @@ nix flake init -t github:zspher/nix-templates#{name}
 ## templates list
 | templates |
 | -- |
-| [`c-cpp`](./c-cpp/) |
+| [`c`](./c/) |
+| [`cpp`](./cpp/) |
 | [`csharp`](./csharp/) |
 | [`default`](./default/) |
 | [`latex`](./latex/) |

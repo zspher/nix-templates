@@ -48,7 +48,10 @@
         default = {
           path = ./empty;
         };
-        c-cpp = {
+        cpp = {
+          path = ./c-cpp;
+        };
+        c = {
           path = ./c-cpp;
         };
         csharp = {
