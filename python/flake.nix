@@ -1,36 +1,46 @@
 {
-  description = "";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    pyproject-nix = {
+      url = "github:pyproject-nix/pyproject.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
 
   outputs =
-    {
-      self,
-      nixpkgs,
-    }:
+    { nixpkgs, pyproject-nix, ... }:
     let
-      systems = [
-        "x86_64-linux" # 64-bit Intel/AMD Linux
-        "aarch64-linux" # 64-bit ARM Linux
-        "x86_64-darwin" # 64-bit Intel macOS
-        "aarch64-darwin" # 64-bit ARM macOS
+      inherit (nixpkgs) lib;
+      perSystem = lib.genAttrs [
+        "x86_64-linux"
+        "aarch64-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
       ];
 
-      perSystem =
-        f: nixpkgs.lib.genAttrs systems (system: f { pkgs = nixpkgs.legacyPackages.${system}; });
+      projectRoot = ./.;
+      project =
+        if builtins.pathExists (projectRoot + "/pyproject.toml") then
+          pyproject-nix.lib.project.loadPyproject { inherit projectRoot; }
+        else
+          null;
     in
     {
       devShells = perSystem (
-        { pkgs }:
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+          python = pkgs.python3;
+          pythonEnv =
+            if project != null then
+              python.withPackages (project.renderers.withPackages { inherit python; })
+            else
+              python;
+        in
         {
-          default = pkgs.mkShell {
+          default = pkgs.mkShellNoCC {
             packages = with pkgs; [
-              (python3.withPackages (
-                ps: with ps; [
-                  debugpy
-                  pytest
-                  ruff
-                ]
-              ))
+              pythonEnv
             ];
           };
         }
