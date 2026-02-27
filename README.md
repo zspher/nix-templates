@@ -15,6 +15,7 @@ nix flake init -t github:zspher/nix-templates#{name}
 | [`cpp`](./cpp/) |
 | [`csharp`](./csharp/) |
 | [`default`](./default/) |
+| [`javascript`](./javascript/) |
 | [`latex`](./latex/) |
 | [`python`](./python/) |
 | [`python-uv`](./python-uv/) |

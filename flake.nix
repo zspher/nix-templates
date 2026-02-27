@@ -57,6 +57,9 @@
         csharp = {
           path = ./csharp;
         };
+        javascript = {
+          path = ./javascript;
+        };
         latex = {
           path = ./latex;
         };
